@@ -1,0 +1,32 @@
+{
+  "variables": {
+    "aws_access_key": "ASIAJATDASMH3I5TGMQA",
+    "aws_secret_key": "abdzkCT+xfM5sC3DX+ypqi6AGTADqLlwIarojqbt",
+	"aws_token":   "FQoDYXdzEHoaDLtvcdngI/00dT5nHSLMAiLvZeh0BnanHmSMUTfd5dZxScEe1T6JV3NuydUdYM1lt3bfGJFLtn+X7AUs7Emi4n8HuKOVcH20dy/Q7YmZdi7GE9QGWpm1Nz7aD793sPpQeM+HoQtn6LqZWXPJFJR9+j6IBBzcqdZ2qk8E9GGAInKFz+xlA2Qjx3FYcfd+0wDNbEwPyZb74fIBEMhyOIb7ivx3l7R1V/NDt+NGr5ozuOeM48y6arPsx/STFgoVayj0PkXxBHLyuzso8ijbH52dx/fbzKYPA9HYQ6mXWqPR2/FmaaIMi4MvOchSDZbZIiwNPw4HeIoky6HPfizq//TVjdoyDmp7Zy9wSljws/0JgoWltr3OYKjqI5iUHvwAmr/a0XS7TFKb1egGspN9LRJV+hfGUHQap+TwiqvEY6EoT2x4uoBjDEXdfh89Wgs+PYjV8DqxG/IFzmgz+1uMKLWs274F"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+	"token": "{{user `aws_token`}}",
+    "region": "us-east-1",
+    "source_ami": "ami-2d39803a",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-example {{timestamp}}",
+	"subnet_id": "subnet-95ccd3e3",
+    "vpc_id": "vpc-8923a8ec"
+	
+  }],
+  
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+	  "sudo aptitude install -y ruby ruby1.8-dev build-essential wget libruby1.8 rubygems",
+      "sudo apt-get install -y chef"
+    ]
+  }]
+  
+}
